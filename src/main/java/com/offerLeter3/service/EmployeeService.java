@@ -107,7 +107,9 @@ public class EmployeeService {
 		
 		
 		
-		return employeeRepository.save(employeedb);		
+		return employeeRepository.save(employeedb);
+//		SalaryStructure salaryStructure = new SalaryStructure();
+				
 	}
 	
 	//deleting employee ::
