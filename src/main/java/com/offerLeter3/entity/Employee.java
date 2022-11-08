@@ -31,7 +31,7 @@ public class Employee {
 	private String phone;
 	
 //	@JsonManagedReference
-	@OneToOne(fetch = FetchType.EAGER)
+	@OneToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
 	@JoinColumn(name = "sid")
 	private SalaryStructure salaryStructure;
 
