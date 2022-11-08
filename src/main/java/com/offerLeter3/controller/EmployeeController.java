@@ -55,7 +55,7 @@ public class EmployeeController {
 		
 		salaryStructure =  employeeService.ctcCalculator(ctc);
 		
-		SalaryStructure salaryStructure1 = employeeService.saveSalary(salaryStructure);
+		//SalaryStructure salaryStructure1 = employeeService.saveSalary(salaryStructure);
 		
 		employee.setSalaryStructure(salaryStructure1);
 		employee = employeeService.save(employee); 
