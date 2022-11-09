@@ -37,7 +37,7 @@ public class EmployeeService {
 	public SalaryStructure ctcCalculator(double ctc) {
 		
 
-//		SalaryStructure salaryStructure = new SalaryStructure();
+		SalaryStructure salaryStructure = new SalaryStructure();
 		
 		
 		salaryStructure.setBasicSalary(ctc * 50 / 100);
