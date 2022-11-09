@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.offerLeter3.entity.Employee;
@@ -18,12 +19,13 @@ import com.offerLeter3.entity.SalaryStructure;
 import com.offerLeter3.service.EmployeeService;
 
 @RestController
+@RequestMapping("/employee")
 public class EmployeeController {
 
 	@Autowired
 	private EmployeeService employeeService;
 
-	@GetMapping("/employee/{id}")
+	@GetMapping("get/{id}")
 	public ResponseEntity<Employee> get(@PathVariable Long id) {
 
 		try {
@@ -55,15 +57,15 @@ public class EmployeeController {
 		
 		salaryStructure =  employeeService.ctcCalculator(ctc);
 		
-		//SalaryStructure salaryStructure1 = employeeService.saveSalary(salaryStructure);
+		SalaryStructure salaryStructure1 = employeeService.saveSalary(salaryStructure);
 		
-		employee.setSalaryStructure(salaryStructure1);
+		employee.setSalaryStructure(salaryStructure);
 		employee = employeeService.save(employee); 
 		
 		return employee;
 	}
 	
-	@PutMapping("/employee/{id}")
+	@PutMapping("/{id}")
 	public Employee updateEmployee(@RequestBody Employee employee,@PathVariable("id") Long id) {
 		
 		
