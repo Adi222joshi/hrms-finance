@@ -25,7 +25,7 @@ public class EmployeeController {
 	@Autowired
 	private EmployeeService employeeService;
 
-	@GetMapping("get/{id}")
+	@GetMapping("employee/{id}")
 	public ResponseEntity<Employee> get(@PathVariable Long id) {
 
 		try {
@@ -55,7 +55,7 @@ public class EmployeeController {
 		
 		SalaryStructure salaryStructure = new SalaryStructure();
 		
-		salaryStructure =  employeeService.ctcCalculator(ctc);
+		salaryStructure =  employeeService.monthCalculator(ctc);
 		
 		SalaryStructure salaryStructure1 = employeeService.saveSalary(salaryStructure);
 		

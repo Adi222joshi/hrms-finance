@@ -34,19 +34,17 @@ public class EmployeeService {
 	}
 	
 	
-	public SalaryStructure ctcCalculator(double ctc) {
+	public SalaryStructure monthCalculator(double ctc) {
 		
 
 		SalaryStructure salaryStructure = new SalaryStructure();
-		
-		
-		salaryStructure.setBasicSalary(ctc * 50 / 100);
-		salaryStructure.setHomeRentAllowance(ctc * 40 / 100);
-		salaryStructure.setLeaveTravelAllowance(20400);
-		salaryStructure.setMedicalReimbursement(15000);
-		salaryStructure.setSpecialAllowance(11532);
-		salaryStructure.setTelephoneInternetAllowance(18000);
-		salaryStructure.setConveyence(19200);
+		salaryStructure.setBasicSalary((ctc * 50/ 100 )/12);
+		salaryStructure.setHomeRentAllowance((ctc * 12 / 100)/12);
+		salaryStructure.setLeaveTravelAllowance(1200);
+		salaryStructure.setMedicalReimbursement(1500);
+		salaryStructure.setSpecialAllowance(1153);
+		salaryStructure.setTelephoneInternetAllowance(1500);
+		salaryStructure.setConveyence(1600);
 		
 		  
 		return salaryStructure;
