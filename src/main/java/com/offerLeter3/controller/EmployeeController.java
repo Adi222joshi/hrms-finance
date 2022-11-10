@@ -2,7 +2,6 @@ package com.offerLeter3.controller;
 
 import java.util.List;
 import java.util.NoSuchElementException;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,8 +12,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
+import com.offerLeter3.dto.EmployeeDetailsDto;
 import com.offerLeter3.entity.Employee;
+import com.offerLeter3.entity.EmployeeDetails;
 import com.offerLeter3.entity.SalaryStructure;
 import com.offerLeter3.service.EmployeeService;
 
@@ -73,7 +73,65 @@ public class EmployeeController {
 		
 	}
 	
+	// Increment Controller Apis :-
+	
+	@GetMapping("/empDetails")
+	public List<EmployeeDetails> listAll(){
+		return employeeService.listAll();
+	}
 	
 	
+	@PostMapping("/addEmp")
+    public EmployeeDetails saveEmployee(@RequestBody EmployeeDetailsDto empDetailsDto) {
+		
+//		double BeforeIncrementedSalary = empDetails.getBeforeIncrementedSalary();
+		
+		EmployeeDetails employeeDetails = new EmployeeDetails();
+		
+		employeeDetails.setEmployeeName(empDetailsDto.getEmployeeName());
+		employeeDetails.setEmployeeJoiningDate(empDetailsDto.getEmployeeJoiningDate());
+		employeeDetails.setEmployeeDepartment(empDetailsDto.getEmployeeDepartment());
+		employeeDetails.setEmployeeDesignation(empDetailsDto.getEmployeeDesignation());
+		employeeDetails.setBeforeIncrementedSalary(empDetailsDto.getBeforeIncrementedSalary());
+		employeeDetails.setAfterIncrementedSalary
+		         (employeeService.calculator(empDetailsDto.getBeforeIncrementedSalary()));
+		
+		employeeService.save(employeeDetails);
+		
+		return employeeDetails;
+	}
 	
+	
+	@GetMapping("getSalary/{beforeIncrementedSalary}")
+	public List<EmployeeDetails> get( @PathVariable("beforeIncrementedSalary") Double beforeIncrementedSalary){
+		
+		return employeeService.get(beforeIncrementedSalary);
+	}
+	
+    
+	@PutMapping("update/{employeeId}")
+	public EmployeeDetails updateEmployeeDetails(@RequestBody EmployeeDetails employeeDetails,@PathVariable("employeeId") Integer id) {
+		
+		
+		return employeeService.updateEmployeeDetails(employeeDetails, id);
+
+	}
+	
+	
+	@GetMapping("getId/{employeeId}")
+	public ResponseEntity<EmployeeDetails> get(@PathVariable("employeeId") Integer id) {
+
+		try {
+
+			EmployeeDetails employeeDetails = employeeService.getById(id);
+
+			return new ResponseEntity<EmployeeDetails>(employeeDetails, HttpStatus.OK);
+
+		} catch (NoSuchElementException e) {
+
+			return new ResponseEntity<EmployeeDetails>(HttpStatus.NOT_FOUND);
+
+		}
+
+	}
 }
