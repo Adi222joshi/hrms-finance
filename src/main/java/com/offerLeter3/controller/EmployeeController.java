@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.offerLeter3.entity.EmployeeDetails;
 import com.offerLeter3.entity.Employee;
 import com.offerLeter3.entity.SalaryStructure;
+import com.offerLeter3.repository.EmployeeDetailsRepository;
 import com.offerLeter3.service.EmployeeService;
 
 @RestController
@@ -22,7 +24,43 @@ public class EmployeeController {
 
 	@Autowired
 	private EmployeeService employeeService;
-
+	
+	
+	@GetMapping("/empDetails")
+	public List<EmployeeDetails> listAll(){
+			return employeeService.listAll();
+		}
+		
+		@PostMapping("/addEmp")
+	    public EmployeeDetails saveEmployee(@RequestBody EmployeeDetails employeeDetails) {
+			
+			double BeforeIncrementedSalary = employeeDetails.getBeforeIncrementedSalary();
+			
+			employeeService.calculator(BeforeIncrementedSalary);
+			
+			employeeService.save(employeeDetails);
+			
+			return employeeDetails;
+		}
+	
+	
+	
+	
+	@PutMapping("/employeeDetails/{id}")
+	
+	
+		public EmployeeDetails updateEmployeeDetails(@RequestBody EmployeeDetails employeeDetails, @PathVariable("id") Integer id ) {
+			
+		return employeeService.updateEmployeeDetails(employeeDetails, id);
+	}
+		
+		
+	
+	
+	
+	
+	
+	
 	@GetMapping("/employee/{id}")
 	public ResponseEntity<Employee> get(@PathVariable Long id) {
 
@@ -57,7 +95,7 @@ public class EmployeeController {
 		
 		//SalaryStructure salaryStructure1 = employeeService.saveSalary(salaryStructure);
 		
-		employee.setSalaryStructure(salaryStructure1);
+		employee.setSalaryStructure(salaryStructure);
 		employee = employeeService.save(employee); 
 		
 		return employee;
@@ -69,7 +107,11 @@ public class EmployeeController {
 		
 		return employeeService.updateEmployee(employee, id);
 		
+		
 	}
+	
+	
+	
 	
 	
 	
