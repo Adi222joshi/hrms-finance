@@ -48,7 +48,7 @@ public class EmployeeController {
 		return employeeService.employeeListByCtc(ctc);
 	}
 
-	@PostMapping("/insert")
+	@PostMapping("/insertdata")
 	public Employee addEmployee(@RequestBody Employee employee) {
 		
 		double ctc =  employee.getCtc();
