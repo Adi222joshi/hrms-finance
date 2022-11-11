@@ -2,14 +2,13 @@ package com.offerLeter3.service;
 
 import java.util.List;
 import java.util.Objects;
-
 import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.offerLeter3.entity.Employee;
+import com.offerLeter3.entity.EmployeeDetails;
 import com.offerLeter3.entity.SalaryStructure;
+import com.offerLeter3.repository.EmployeeDetailsRepository;
 import com.offerLeter3.repository.EmployeeRepository;
 import com.offerLeter3.repository.SalaryStructureRepository;
 
@@ -20,6 +19,9 @@ public class EmployeeService {
 	
 	@Autowired
 	private EmployeeRepository employeeRepository;
+	
+	@Autowired
+	private EmployeeDetailsRepository employeeDetailsRepository;
 	
 	@Autowired
 	private SalaryStructureRepository salaryStructureRepository;
@@ -117,5 +119,75 @@ public class EmployeeService {
 		
 	}
 	
+	  // Increment Letter Services :-
 	
+	
+	public List<EmployeeDetails> listAll(){
+		return employeeDetailsRepository.findAll();
+	}
+	
+    
+	public Double calculator(double beforeIncrementedSalary ) {
+		
+		double newSalary = (beforeIncrementedSalary*(1.1));
+		return newSalary;
+	}
+	
+    
+    public EmployeeDetails save(EmployeeDetails employeeDetails) {
+		
+		return employeeDetailsRepository.save(employeeDetails);
+	
+	}
+	
+	
+   public List<EmployeeDetails> get(Double beforeIncrementedSalary){
+	
+	return employeeDetailsRepository.findByBeforeIncrementedSalary(beforeIncrementedSalary);
+   
+   }
+   
+   
+   public EmployeeDetails getById(Integer id){
+		
+		return employeeDetailsRepository.findById(id).get();
+	}
+   
+  
+   public EmployeeDetails updateEmployeeDetails(EmployeeDetails employeeDetails, Integer id) {
+		
+		
+		EmployeeDetails empDetails = employeeDetailsRepository.findById(id).get();
+		
+		
+		if(Objects.nonNull(employeeDetails.getEmployeeName()) && !"".equalsIgnoreCase(employeeDetails.getEmployeeName())) {
+			
+			empDetails.setEmployeeName(employeeDetails.getEmployeeName());
+			
+		}
+		
+		if(Objects.nonNull(employeeDetails.getEmployeeDepartment()) && !"".equalsIgnoreCase(employeeDetails.getEmployeeDepartment())) {
+			
+			empDetails.setEmployeeDepartment(employeeDetails.getEmployeeDepartment());
+		}
+		
+        if(Objects.nonNull(employeeDetails.getEmployeeDesignation()) && !"".equalsIgnoreCase(employeeDetails.getEmployeeDesignation())) {
+			
+			empDetails.setEmployeeDesignation(employeeDetails.getEmployeeDesignation());
+		}
+        
+        if(Objects.nonNull(employeeDetails.getEmployeeJoiningDate()) && !"".equalsIgnoreCase(employeeDetails.getEmployeeJoiningDate())) {
+			
+			empDetails.setEmployeeJoiningDate(employeeDetails.getEmployeeDepartment());
+		}
+		
+		if(Objects.nonNull(employeeDetails.getBeforeIncrementedSalary())) {
+			
+			empDetails.setBeforeIncrementedSalary(employeeDetails.getBeforeIncrementedSalary());
+		}
+		
+		
+		return employeeDetailsRepository.save(empDetails);
+   }  
+
 }
