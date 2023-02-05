@@ -14,7 +14,8 @@ public class OfferLetter3Application {
 	public static void main(String[] args) {
 		SpringApplication.run(OfferLetter3Application.class, args);
 		
-		System.out.println(" Increment Letter Application ");
+		System.out.println(" Increment  Application ");
+		
 	}
 
 }
